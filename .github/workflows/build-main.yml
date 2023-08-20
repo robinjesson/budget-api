@@ -7,7 +7,6 @@ on:
 
 env:
   REGISTRY: 'ghcr.io/robinjesson'
-  REPOSITORY: 'budget-api'
 
 jobs:
   build-and-push-docker-image:
@@ -24,14 +23,12 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: benjlevesque/short-sha@v2.2
-        id: short-sha
-        with:
-          length: 7
       - name: Build and push docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{steps.short-sha.outputs.sha}}
+          tags:
+            - ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.sha }}
+            - latest
