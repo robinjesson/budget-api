@@ -13,4 +13,4 @@ jobs:
       - name: Build Docker Image
         run: docker build -t budget-api:${GITHUB_REF_NAME}.${GITHUB_SHA} .
       - name: Push Docker Image to GitHub Packages
-        run: docker push p.io/robinjesson/budget-api
+        run: docker push ghcr.io/robinjesson/budget-api
